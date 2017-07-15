@@ -121,7 +121,13 @@ local function dump(value, conf, depth)
 		local svtype = type(v)
 		if not visited[k] and not skip_type[svtype] then
 			table.insert(list, indent)
-			table.insert(list, tostring(k))
+			if type(k) == "number" then
+				table.insert(list, "[")
+				table.insert(list, k)
+				table.insert(list, "]")
+			else
+				table.insert(list, tostring(k))
+			end
 			table.insert(list, "=")
 			local sv = dump(v, conf, depth + 1)
 			table.insert(list, sv)
